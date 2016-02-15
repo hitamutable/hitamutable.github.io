@@ -3,5 +3,12 @@
 # Test
 
 Another ones
+_italic_
+*bold*
+[source,javascript]
+----
+console.log("abc")
+----
 
-:hp-image: http://zoarchurch.co.uk/content/pages/uploaded_images/91.png
+image::http://zoarchurch.co.uk/content/pages/uploaded_images/91.png[haha]
+video::QK8mJJJvaes[youtube]
