@@ -10,7 +10,7 @@
 
 ##### Header 5
 
-Hitamu <hitamu@live.com>
+Hitamu hitamu@live.com
 
 Normal
 
@@ -22,6 +22,9 @@ _italic_
 
 http://google.com[Link]
 
+[TIPS]
+HubPress only supports the HTML5 backend.
+Specifying other backend types will result in an error similar to
 
 [source, java]
 ----
