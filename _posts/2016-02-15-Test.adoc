@@ -5,9 +5,13 @@
 Another ones
 _italic_
 *bold*
-[source,javascript]
+[source,scala]
 ----
-console.log("abc")
+case class User(id: Double, name: String, visitedPlace: Seq[String])
+object User {
+	def apply()
+    def unapply()
+}
 ----
 
 image::http://zoarchurch.co.uk/content/pages/uploaded_images/91.png[haha]
