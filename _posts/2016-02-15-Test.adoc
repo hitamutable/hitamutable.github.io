@@ -5,7 +5,7 @@
 Another ones
 _italic_
 *bold*
-[source,scala]
+[source, java]
 ----
 case class User(id: Double, name: String, visitedPlace: Seq[String])
 object User {
