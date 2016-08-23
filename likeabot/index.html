@@ -34,15 +34,15 @@
                         '<tr>' +
                           '<td>' + idx + '</td>' + // No
                           '<td>' + '<img src="' + photo.image_url + '" />' + '</td>' + // Thumnail
-                          '<td>' + photo.name + '</td>' + // Name
+                          '<td>' + '<a href="https://500px.com/' + photo.name  + '">' + photo.name + '</a>'+ '</td>' + // Name
                           '<td>' + 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
                           '<td>' + msg + '</td>' + // Message
                         '</tr>';
                     }
                     if (response.success) {
-                      $('#table > tbody:last-child').append(row("Voted"));
+                      $('#logged_in #table tbody:last-child').append(row("Voted"));
                     } else {
-                      $('#table > tbody:last-child').append(row(response.error_message));
+                      $('#logged_in #table tbody:last-child').append(row(response.error_message));
                     } 
                   });
                 });
@@ -78,7 +78,6 @@
              <th>No</th>
              <th>Thumbnail</th>
              <th>Image name</th>
-             <th>Url</th>
              <th>Gears</th>
              <th>Message</th>
            </tr>
