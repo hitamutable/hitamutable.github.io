@@ -4,6 +4,7 @@
     <title>Auto like bot</title>
     <script src="./500px.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   </head>
   <body>
     <script>
@@ -27,16 +28,19 @@
                 alert('Photos not found.');
               } else {
                 $.each(response.data.photos, function (idx, photo) {
-                  // Like a picture
+                  // Vote up a photo
                   _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
                     var msg = response.success ? "Voted" : response.error_message;
+                    var img = '<img src="' + photo.image_url + '" width="50" />';
+                    var url = '<a href="https://500px.com/' + photo.url + '">' + photo.name + '</a>';
+                    var gear = 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>'
                     var row =
                       '<tr>' +
-                        '<td>' + idx + '</td>' + // No
-                        '<td>' + '<img src="' + photo.image_url + '" />' + '</td>' + // Thumnail
-                        '<td>' + '<a href="https://500px.com/' + photo.url + '">' + photo.name + '</a>'+ '</td>' + // Name
-                        '<td>' + 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
-                        '<td>' + msg + '</td>' + // Message
+                        '<td>' + idx + '</td>' +
+                        '<td>' + img + '</td>' +
+                        '<td>' + url + '</td>' +
+                        '<td>' + gear +
+                        '<td>' + msg + '</td>' +
                       '</tr>';
                     
                     $('#logged_in #table tbody:last-child').append(row);
