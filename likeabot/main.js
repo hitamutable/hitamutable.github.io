@@ -74,18 +74,14 @@ $(function () {
 	};
 
 	function voteUp(photos) {
-		photos
-			.filter(function(photo){
-				return !photo.voted;
-			})
-			.map(function(photo){
-				var url = '/photos/' + photo.id + '/vote';
-				var params = {vote: 1};
-				// Vote up each photo
-				_500px.api(url, 'post', params, function(res) {
-					generateReport(res, photo);
-				});
+		photos.map(function(photo){
+			var url = '/photos/' + photo.id + '/vote';
+			var params = {vote: 1};
+			// Vote up each photo
+			_500px.api(url, 'post', params, function(res) {
+				generateReport(res, photo);
 			});
+		});
 	};
 
 	function fetchThenVote(cat) {
