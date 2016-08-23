@@ -42,7 +42,8 @@
                     if (response.success) {
                       $('#logged_in #table tbody:last-child').append(row("Voted"));
                     } else {
-                      $('#logged_in #table tbody:last-child').append(row(response.error_message));
+                      var newRow = row(response.error_message);
+                      $('#logged_in #table tbody:last-child').append(newRow);
                     } 
                   });
                 });
