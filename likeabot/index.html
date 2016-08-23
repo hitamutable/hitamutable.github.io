@@ -32,6 +32,16 @@
               }
             });
           });
+
+          // Like a picture
+          _500px.api('/photos/169016753', 'post', {vote: 1}, function (response) {
+            if (response.success) {
+              console.log(response.success);
+              alert('Voted');
+            } else {
+              console.log(response.error);
+            } 
+          });
         });
 
         _500px.on('logout', function () {
