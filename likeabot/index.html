@@ -27,16 +27,15 @@
                 alert('Photos not found.');
               } else {
                 $.each(response.data.photos, function (idx, photo) {
-                  $('#logged_in').append('<img src="' + photo.image_url + '" />');
                   // Like a picture
                   _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
-                    var row = fucntion(msg) {
+                    var row = function(msg) {
                       return 
                         '<tr>' +
                           '<td>' + idx + '</td>' + // No
                           '<td>' + '<img src="' + photo.image_url + '" />' + '</td>' + // Thumnail
                           '<td>' + photo.name + '</td>' + // Name
-                          '<td>' + 'Body: ' photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
+                          '<td>' + 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
                           '<td>' + msg + '</td>' + // Message
                         '</tr>';
                     }
