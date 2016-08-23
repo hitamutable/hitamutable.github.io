@@ -22,25 +22,15 @@
             var me = response.data.user;
 
             // Get my favorites
-            _500px.api('/photos', { feature: 'user_favorites', user_id: me.id }, function (response) {
+            _500px.api('/photos', { feature: 'popular' }, function (response) {
               if (response.data.photos.length == 0) {
-                alert('You have no favorite photos.');
+                alert('Photos not found.');
               } else {
                 $.each(response.data.photos, function () {
                   $('#logged_in').append('<img src="' + this.image_url + '" />');
                 });
               }
             });
-          });
-
-          // Like a picture
-          _500px.api('/photos/169016753/vote', 'post', {vote: 1}, function (response) {
-            if (response.success) {
-              console.log(response.success);
-              alert('Voted');
-            } else {
-              console.log(response.error);
-            } 
           });
         });
 
