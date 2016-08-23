@@ -22,29 +22,24 @@
             var me = response.data.user;
 
             // Get my favorites
-            _500px.api('/photos', { feature: 'popular' }, function (response) {
+            _500px.api('/photos', { feature: 'upcoming' }, function (response) {
               if (response.data.photos.length == 0) {
                 alert('Photos not found.');
               } else {
                 $.each(response.data.photos, function (idx, photo) {
                   // Like a picture
                   _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
-                    var row = function(msg) {
-                      return 
-                        '<tr>' +
-                          '<td>' + idx + '</td>' + // No
-                          '<td>' + '<img src="' + photo.image_url + '" />' + '</td>' + // Thumnail
-                          '<td>' + '<a href="https://500px.com/' + photo.name  + '">' + photo.name + '</a>'+ '</td>' + // Name
-                          '<td>' + 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
-                          '<td>' + msg + '</td>' + // Message
-                        '</tr>';
-                    }
-                    if (response.success) {
-                      $('#logged_in #table tbody:last-child').append(row("Voted"));
-                    } else {
-                      var newRow = row(response.error_message);
-                      $('#logged_in #table tbody:last-child').append(newRow);
-                    } 
+                    var msg = response.success ? "Voted" : response.error_message;
+                    var row =
+                      '<tr>' +
+                        '<td>' + idx + '</td>' + // No
+                        '<td>' + '<img src="' + photo.image_url + '" />' + '</td>' + // Thumnail
+                        '<td>' + '<a href="https://500px.com/' + photo.url + '">' + photo.name + '</a>'+ '</td>' + // Name
+                        '<td>' + 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
+                        '<td>' + msg + '</td>' + // Message
+                      '</tr>';
+                    
+                    $('#logged_in #table tbody:last-child').append(row);
                   });
                 });
               }
