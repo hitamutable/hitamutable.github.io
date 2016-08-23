@@ -27,7 +27,6 @@ $(function () {
 	function makeThumbnail(photo) {
 		return '<a href="https://500px.com/' + photo.url + '">' +
 				 		 '<img src="' + photo.image_url + '" width="50" />' +
-				 		 '<legend style="text-align: center">' + photo.name + '</legend>' +
 					 '</a>';
 	};
 
@@ -47,10 +46,8 @@ $(function () {
 
 	function makeMsg(res, photo) {
 		if(res.error) return res.error_message;
-		return "Voted for" + photo.user.fullname + "<br>" +
-					 "Live in " + photo.user.city + ", " + photo.user.country + "<br>" +
-					 "Followers: " + photo.user.followers_count + "<br>"
-
+		return "User: " + photo.user.fullname + "<br>" +
+					 "Live in: " + photo.user.city + " " + photo.user.country;
 	};
 	
 	function generateReport(res, photo) {
@@ -61,6 +58,7 @@ $(function () {
 		var row =
 		  '<tr>' +
 		    '<td>' + thumbnail + '</td>' +
+		    '<td>' + photo.name + '</td>' +
 		    '<td>' + gear + '</td>' +
 		    '<td>' + exif + '</td>' +
 		    '<td>' + photo.times_viewed + '</td>' +
