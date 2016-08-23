@@ -22,10 +22,10 @@
             if (response.data.photos.length == 0) {
               alert('Photos not found.');
             } else {
+              var count = 0;
               $.each(response.data.photos, function (idx, photo) {
                 // Vote up a photo
                 _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
-                  var count = 0;
                   count = response.success ? count + 1 : count;
                   var msg = response.success ? "Voted" : response.error_message;
                   var img = '<img src="' + photo.image_url + '" width="100" />';
@@ -46,9 +46,9 @@
                     '</tr>';
                   
                   $('#logged_in #table tbody:last-child').append(row);
-                  $('#logged_in #result').append('<h4>' + count + " liked" +'</h4>');
                 });
               });
+              $('#logged_in #result').append('<h4>' + count + " liked" +'</h4>');
             }
           });
         });
