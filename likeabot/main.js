@@ -25,19 +25,18 @@ $(function () {
 	});
 
 	function makeThumbnail(photo) {
-		return 
-			'<a href="https://500px.com/' + photo.url + '">' +
-				'<img src="' + photo.image_url + '" width="50" />' +
-			'</a>';
+		return '<a href="https://500px.com/' + photo.url + '">' +
+				 		 '<img src="' + photo.image_url + '" width="50" />' +
+				 		 '<legend style="text-align: center">' + photo.name + '</legend>' +
+					 '</a>';
 	};
 
 	function getExif(photo) {
 		if(!photo.iso) return "";
-		return
-			photo.focal_length + ' mm, ' +
-			'iso ' + photo.iso + ', ' +
-			'f ' + photo.aperture + ', ' +
-			photo.shutter_speed + ' s';
+		return photo.focal_length + ' mm, ' +
+						 'iso ' + photo.iso + ', ' +
+						 'f ' + photo.aperture + ', ' +
+					 photo.shutter_speed + ' s';
 	};
 
 	function getGearInfo(photo) {
