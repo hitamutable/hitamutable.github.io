@@ -21,8 +21,12 @@ $(function () {
 	_500px.on('authorization_obtained', function() {
 	  $('#not_logged_in').hide();
 	  $('#logged_in').show();
+	  
 	  fetchThenVote('upcoming');
-	  setInterval(fetchThenVote('upcoming'), 600000);
+	  
+	  setInterval(function() {
+	  	fetchThenVote('upcoming')
+	  }, 600000);
 	});
 
 	function makeThumbnail(photo) {
@@ -82,7 +86,7 @@ $(function () {
 	};
 
 	function fetchThenVote(cat) {
-		var params = { feature: cat, rpp: 50 };
+		var params = { feature: cat, rpp: 20 };
 		// Get photos by category
 		_500px.api('/photos', params, function(res){
 			if (res.success) {
