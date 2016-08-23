@@ -22,16 +22,17 @@ $(function () {
 	  $('#not_logged_in').hide();
 	  $('#logged_in').show();
 	  fetchThenVote('upcoming');
+	  setInterval(fetchThenVote('upcoming'), 600000);
 	});
 
 	function makeThumbnail(photo) {
-		return '<a href="https://500px.com/' + photo.url + '">' +
+		return '<a href="https://500px.com' + photo.url + '" target="_blank">' +
 				 		 '<img src="' + photo.image_url + '" width="50" />' +
 					 '</a>';
 	};
 
 	function getExif(photo) {
-		if(!photo.iso) return "";
+		if(!photo.iso) return "NA";
 		return photo.focal_length + ' mm, ' +
 						 'iso ' + photo.iso + ', ' +
 						 'f ' + photo.aperture + ', ' +
@@ -39,7 +40,7 @@ $(function () {
 	};
 
 	function getGearInfo(photo) {
-		if(!photo.camera) return "";
+		if(!photo.camera) return "NA";
 		return "Body: " + photo.camera + "<br>" +
 					 "Lens: " + photo.lens;
 	};
