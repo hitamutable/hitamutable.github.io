@@ -21,15 +21,14 @@ $(function () {
 	_500px.on('authorization_obtained', function() {
 	  $('#not_logged_in').hide();
 	  $('#logged_in').show();
-	  fetchThenVote('popular');
+	  fetchThenVote('upcoming');
 	});
 
 	function makeThumbnail(photo) {
 		return 
-			"<a href=https://500px.com/" + photo.url + ">" +
-				"<img src=" + photo.image_url + " width=50 />" +
-				"<legend>" + photo.name + "</legend>" +
-			"</a>";
+			'<a href="https://500px.com/' + photo.url + '">' +
+				'<img src="' + photo.image_url + '" width="50" />' +
+			'</a>';
 	};
 
 	function getExif(photo) {
@@ -43,7 +42,7 @@ $(function () {
 
 	function getGearInfo(photo) {
 		if(!photo.camera) return "";
-		return "Body: " + photo.camera + "<br>"
+		return "Body: " + photo.camera + "<br>" +
 					 "Lens: " + photo.lens;
 	};
 
