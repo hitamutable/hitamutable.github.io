@@ -30,10 +30,20 @@
                   $('#logged_in').append('<img src="' + photo.image_url + '" />');
                   // Like a picture
                   _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
+                    var row = fucntion(msg) {
+                      return 
+                        '<tr>' +
+                          '<td>' + idx + '</td>' + // No
+                          '<td>' + '<img src="' + photo.image_url + '" />' + '</td>' + // Thumnail
+                          '<td>' + photo.name + '</td>' + // Name
+                          '<td>' + 'Body: ' photo.camera + '<br>Lens: ' + photo.lens + '</td>' + // Gears
+                          '<td>' + msg + '</td>' + // Message
+                        '</tr>';
+                    }
                     if (response.success) {
-                      console.log('Voted for photo_id: ' + photo.id);
+                      $('#table > tbody:last-child').append(row("Voted"));
                     } else {
-                      console.log(response.error);
+                      $('#table > tbody:last-child').append(row(response.error_message));
                     } 
                   });
                 });
@@ -62,6 +72,20 @@
       <a href="#" id="login">Login to 500px</a>
     </div>
     <div id="logged_in" style="display: none;">
+      <div id="table">  
+         <table class="table">
+          <tbody>
+            <tr>
+             <th>No</th>
+             <th>Thumbnail</th>
+             <th>Image name</th>
+             <th>Url</th>
+             <th>Gears</th>
+             <th>Message</th>
+           </tr>
+          </tbody>     
+         </table>
+       </div>
     </div>
   </body>
 </html>
