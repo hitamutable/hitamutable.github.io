@@ -18,36 +18,30 @@
           $('#not_logged_in').hide();
           $('#logged_in').show();
 
-          // Get my user id
-          _500px.api('/users', function (response) {
-            var me = response.data.user;
-
-            // Get my favorites
-            _500px.api('/photos', { feature: 'upcoming' }, function (response) {
-              if (response.data.photos.length == 0) {
-                alert('Photos not found.');
-              } else {
-                $.each(response.data.photos, function (idx, photo) {
-                  // Vote up a photo
-                  _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
-                    var msg = response.success ? "Voted" : response.error_message;
-                    var img = '<img src="' + photo.image_url + '" width="50" />';
-                    var url = '<a href="https://500px.com/' + photo.url + '">' + photo.name + '</a>';
-                    var gear = 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>'
-                    var row =
-                      '<tr>' +
-                        '<td>' + idx + '</td>' +
-                        '<td>' + img + '</td>' +
-                        '<td>' + url + '</td>' +
-                        '<td>' + gear +
-                        '<td>' + msg + '</td>' +
-                      '</tr>';
-                    
-                    $('#logged_in #table tbody:last-child').append(row);
-                  });
+          _500px.api('/photos', { feature: 'upcoming' }, function (response) {
+            if (response.data.photos.length == 0) {
+              alert('Photos not found.');
+            } else {
+              $.each(response.data.photos, function (idx, photo) {
+                // Vote up a photo
+                _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
+                  var msg = response.success ? "Voted" : response.error_message;
+                  var img = '<img src="' + photo.image_url + '" width="100" />';
+                  var url = '<a href="https://500px.com/' + photo.url + '">' + photo.name + '</a>';
+                  var gear = 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens + '</td>'
+                  var row =
+                    '<tr>' +
+                      '<td>' + photo.id + '</td>' +
+                      '<td>' + img + '</td>' +
+                      '<td>' + url + '</td>' +
+                      '<td>' + gear +
+                      '<td>' + msg + '</td>' +
+                    '</tr>';
+                  
+                  $('#logged_in #table tbody:last-child').append(row);
                 });
-              }
-            });
+              });
+            }
           });
         });
 
@@ -64,15 +58,16 @@
         $('#login').click(_500px.login);
       });
     </script>
-
-    <h1>Your 500px favorite photos</h1>
+      
+    </div>
+    <h1>Auto like photos on 500px</h1>
 
     <div id="not_logged_in">
       <a href="#" id="login">Login to 500px</a>
     </div>
     <div id="logged_in" style="display: none;">
       <div id="table">  
-         <table class="table">
+         <table class="table table-bordered table-hover">
           <tbody>
             <tr>
              <th>No</th>
