@@ -26,10 +26,10 @@ $(function () {
 
 	function makeThumbnail(photo) {
 		return 
-			'<a href="https://500px.com/' + photo.url + '">' +
-				'<img src="' + photo.image_url + '" width="50" />' +
-				'<legend>' + photo.name + '</legend>' +
-			'</a>'
+			"<a href=https://500px.com/" + photo.url + ">" +
+				"<img src=" + photo.image_url + " width=50 />" +
+				"<legend>" + photo.name + "</legend>" +
+			"</a>";
 	};
 
 	function getExif(photo) {
@@ -48,7 +48,7 @@ $(function () {
 	};
 
 	function makeMsg(res, photo) {
-		if(res.error) return "";
+		if(res.error) return res.error_message;
 		return "Voted for" + photo.user.fullname + "<br>" +
 					 "Live in " + photo.user.city + ", " + photo.user.country + "<br>" +
 					 "Followers: " + photo.user.followers_count + "<br>"
