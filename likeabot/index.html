@@ -26,7 +26,7 @@
               if (response.data.photos.length == 0) {
                 alert('Photos not found.');
               } else {
-                $.each(response.data.photos, function (photo) {
+                $.each(response.data.photos, function (idx, photo) {
                   $('#logged_in').append('<img src="' + photo.image_url + '" />');
                   // Like a picture
                   _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
