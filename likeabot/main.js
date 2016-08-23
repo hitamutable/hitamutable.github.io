@@ -23,24 +23,50 @@ $(function () {
 	  $('#logged_in').show();
 	  fetchThenVote('popular');
 	});
+
+	function makeThumbnail(photo) {
+		return 
+			'<a href="https://500px.com/' + photo.url + '">' +
+				'<img src="' + photo.image_url + '" width="50" />' +
+				'<legend>' + photo.name + '</legend>'
+			'</a>'
+	};
+
+	function getExif(photo) {
+		if(!photo.iso) return;
+		return
+			photo.focal_length + ' mm, ' +
+			'iso ' + photo.iso + ', ' +
+			'f ' + photo.aperture + ', ' +
+			photo.shutter_speed + ' s';
+	};
+
+	function getGearInfo(photo) {
+		if(!photo.camera) return;
+		return "Body" + photo.camera +
+					 "Lens" + photo.lens;
+	};
+
+	function makeMsg(res, photo) {
+		if(res.error) return;
+		return "Voted for" + photo.user.fullname + "<br>" +
+					 "Live in " + photo.user.city + ", " + photo.user.country + "<br>" +
+					 "Followers: " + photo.user.followers_count + "<br>"
+
+	};
 	
 	function generateReport(res, photo) {
-		console.log(photo);
-		var msg = res.success ? "Voted" : res.error_message;
-		var img = '<img src="' + photo.image_url + '" width="100" />';
-		var url = '<a href="https://500px.com/' + photo.url + '">' + photo.name + '</a>';
-		var gear = 'Body: ' + photo.camera + '<br>Lens: ' + photo.lens;
-		var exif = photo.focal_length + ' mm, ' +
-		           'iso ' + photo.iso + ', ' +
-		           'f ' + photo.aperture + ', ' +
-		           photo.shutter_speed + ' s';
+		var thumbnail = makeThumbnail(photo);
+		var gear = getGearInfo(photo);
+		var exif = getExif(photo);
+		var msg  = makeMsg(res, photo);
 		var row =
 		  '<tr>' +
-		    '<td>' + photo.taken_at + '</td>' +
-		    '<td>' + img + '</td>' +
-		    '<td>' + url + '</td>' +
+		    '<td>' + thumbnail + '</td>' +
 		    '<td>' + gear + '</td>' +
 		    '<td>' + exif + '</td>' +
+		    '<td>' + photo.times_viewed + '</td>' +
+		    '<td>' + photo.votes_count + '</td>' +
 		    '<td>' + msg + '</td>' +
 		  '</tr>';
 		
@@ -48,14 +74,18 @@ $(function () {
 	};
 
 	function voteUp(photos) {
-		photos.map(function(photo){
-			var url = '/photos/' + photo.id + '/vote';
-			var params = {vote: 1};
-			// Vote up each photo
-			_500px.api(url, 'post', params, function(res) {
-				generateReport(res, photo);
+		photos
+			.filter(function(photo){
+				return !photo.voted;
+			})
+			.map(function(photo){
+				var url = '/photos/' + photo.id + '/vote';
+				var params = {vote: 1};
+				// Vote up each photo
+				_500px.api(url, 'post', params, function(res) {
+					generateReport(res, photo);
+				});
 			});
-		});
 	};
 
 	function fetchThenVote(cat) {
