@@ -28,12 +28,12 @@ $(function () {
 		return 
 			'<a href="https://500px.com/' + photo.url + '">' +
 				'<img src="' + photo.image_url + '" width="50" />' +
-				'<legend>' + photo.name + '</legend>'
+				'<legend>' + photo.name + '</legend>' +
 			'</a>'
 	};
 
 	function getExif(photo) {
-		if(!photo.iso) return;
+		if(!photo.iso) return "";
 		return
 			photo.focal_length + ' mm, ' +
 			'iso ' + photo.iso + ', ' +
@@ -42,13 +42,13 @@ $(function () {
 	};
 
 	function getGearInfo(photo) {
-		if(!photo.camera) return;
-		return "Body" + photo.camera +
-					 "Lens" + photo.lens;
+		if(!photo.camera) return "";
+		return "Body: " + photo.camera + "<br>"
+					 "Lens: " + photo.lens;
 	};
 
 	function makeMsg(res, photo) {
-		if(res.error) return;
+		if(res.error) return "";
 		return "Voted for" + photo.user.fullname + "<br>" +
 					 "Live in " + photo.user.city + ", " + photo.user.country + "<br>" +
 					 "Followers: " + photo.user.followers_count + "<br>"
