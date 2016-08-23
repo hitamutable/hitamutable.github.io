@@ -26,8 +26,16 @@
               if (response.data.photos.length == 0) {
                 alert('Photos not found.');
               } else {
-                $.each(response.data.photos, function () {
-                  $('#logged_in').append('<img src="' + this.image_url + '" />');
+                $.each(response.data.photos, function (photo) {
+                  $('#logged_in').append('<img src="' + photo.image_url + '" />');
+                  // Like a picture
+                  _500px.api('/photos/' + photo.id + '/vote', 'post', {vote: 1}, function (response) {
+                    if (response.success) {
+                      console.log('Voted for photo_id: ' + photo.id);
+                    } else {
+                      console.log(response.error);
+                    } 
+                  });
                 });
               }
             });
